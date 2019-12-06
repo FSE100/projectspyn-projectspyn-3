@@ -1,0 +1,107 @@
+global key
+while 1
+    brick.SetColorMode(1, 2);
+color = brick.ColorCode(1);  % Get Color on port 1.
+display(color); %print out color name
+   
+     if (color == 5)
+             brick.StopMotor('AB');
+    pause(3);
+    brick.MoveMotor('AB', 50);
+    pause(2);
+     end
+        
+    if (color == 3)
+         brick.StopAllMotors('Brake');
+    end
+        
+    if(color == 2)
+        InitKeyboard();
+           pause(5);
+        switch key
+        case 'uparrow'
+            disp('Up Arrow Pressed!');
+            brick.MoveMotor('A', 50)
+            brick.MoveMotor('B', 50)
+        case 'downarrow'
+            disp('Down Arrow Pressed!');
+            brick.MoveMotor('A', -50)
+            brick.MoveMotor('B', -50)
+
+        case 'leftarrow'
+            disp('Left Arrow Pressed!');
+            brick.MoveMotor('A', 0)
+            brick.MoveMotor('B', 25)
+
+        case 'rightarrow'
+            disp('Right Arrow Pressed!');
+            brick.MoveMotor('A', 25)
+            brick.MoveMotor('B', 0)
+            
+    case 'u'
+        disp('The claw moved up!');
+        brick.MoveMotorAngleRel('C', 10, -30);
+        
+    case 'd'
+        disp('The claw moved down!');
+            brick.MoveMotorAngleRel('C', 10, 30);
+        
+        case 0
+            disp('No Key Pressed!');
+            brick.MoveMotor('A', 0)
+            brick.MoveMotor('B', 0)
+    
+        case 'q'
+            break;
+       
+        end
+CloseKeyboard();
+    end
+
+
+    disp(brick.UltrasonicDist(4));                   % Print distance.
+       
+    if (brick.UltrasonicDist(4) < 50 && brick.TouchPressed(3) == 0)
+        
+        brick.MoveMotor('A', 40);
+        brick.MoveMotor('B', 0);
+        pause(1);
+        
+        
+        
+        
+    elseif (brick.UltrasonicDist(4) > 64 && brick.TouchPressed(3) == 0)
+        brick.MoveMotor('A', 0);
+        brick.MoveMotor('B', 40);
+        pause(1);
+        
+        brick.MoveMotor('A', 50);
+        brick.MoveMotor('B', 50);
+        pause(3.5);
+        
+        
+        
+        
+    elseif brick.TouchPressed(3) == 1
+        
+        brick.MoveMotor('A', -40);
+        brick.MoveMotor('B', -40);
+        pause(1);
+        
+        brick.MoveMotor('A', 0);
+        brick.MoveMotor('B', 40);
+        pause(1);
+       
+        
+        else
+        brick.MoveMotor('AB', 40);
+        
+    end
+
+ 
+     
+    %     brick.StopMotor('A');
+    %     brick.StopMotor('B');
+    
+end
+
