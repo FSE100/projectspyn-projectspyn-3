@@ -1,0 +1,91 @@
+while 1
+    
+    disp(brick.UltrasonicDist(4));                   % Print distance.
+       
+    if (brick.UltrasonicDist(4) < 50 && brick.TouchPressed(3) == 0)
+        
+        brick.MoveMotor('A', -10);
+        brick.MoveMotor('B', 40);
+        pause(0.7);
+        
+        
+        
+        
+    elseif (brick.UltrasonicDist(4) > 70 && brick.TouchPressed(3) == 0)
+        brick.MoveMotor('A', 0);
+        brick.MoveMotor('B', 40);
+        pause(1);
+        
+        
+        brick.MoveMotor('A', 40);
+        brick.MoveMotor('B', 40);
+        pause(5);
+        
+        
+        
+    elseif brick.TouchPressed(3) == 1
+        
+        brick.MoveMotor('A', -40);
+        brick.MoveMotor('B', -40);
+        pause(1);
+        
+        brick.MoveMotor('A', 0);
+        brick.MoveMotor('B', 40);
+        pause(1);
+        
+    elseif (color_rgb(2) >= 68 && color_rgb(2) <= 70)
+         brick.StopAllMotors('Brake');
+        
+    elseif (color_rgb(1) >= 100 && color_rgb(1) <= 110)
+             brick.StopMotor('AB');
+    pause(3);
+    brick.MoveMotor('AB', 50);
+    pause(2);
+    elseif(color_rgb(3) >= 100)
+        switch key
+        case 'uparrow'
+            disp('Up Arrow Pressed!');
+            brick.MoveMotor('A', 50)
+            brick.MoveMotor('B', 50)
+        case 'downarrow'
+            disp('Down Arrow Pressed!');
+            brick.MoveMotor('A', -50)
+            brick.MoveMotor('B', -50)
+
+        case 'leftarrow'
+            disp('Left Arrow Pressed!');
+            brick.MoveMotor('A', 0)
+            brick.MoveMotor('B', 25)
+
+        case 'rightarrow'
+            disp('Right Arrow Pressed!');
+            brick.MoveMotor('A', 25)
+            brick.MoveMotor('B', 0)
+            
+    case 'u'
+        disp('The claw moved up!');
+        brick.MoveMotorAngleRel('C', 10, -30);
+        
+    case 'd'
+        disp('The claw moved down!');
+            brick.MoveMotorAngleRel('C', 10, 30);
+        
+        case 0
+            disp('No Key Pressed!');
+            brick.MoveMotor('A', 0)
+            brick.MoveMotor('B', 0)
+    
+        case 'q'
+            break;
+
+        end
+
+        
+        else
+        brick.MoveMotor('AB', 40);
+        
+    end
+    %     brick.StopMotor('A');
+    %     brick.StopMotor('B');
+    
+end
